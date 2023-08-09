@@ -1,1 +1,3 @@
-# help-or-gtfo-backend
+# Help or GTFO backend
+
+Repo for backend.
