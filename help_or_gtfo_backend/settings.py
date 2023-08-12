@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-k9k@*u@i1s!@=%p6otl_eh5u=mb(+t&783_bravw2clwc8&c&=
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'prisoners.Prisoner'
 
 
 # Application definition
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'prisoners'
 ]
 
 MIDDLEWARE = [
