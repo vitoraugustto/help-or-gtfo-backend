@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Prisoner
+from .models import CustomUser
 from django.contrib.auth.admin import UserAdmin
 
-admin.site.register(Prisoner, UserAdmin)
+admin.site.register(CustomUser, UserAdmin)
