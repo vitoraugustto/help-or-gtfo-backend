@@ -13,7 +13,7 @@ class Rundown(models.Model):
     def __str__(self):
         return f'ALT://RUNDOWN {self.number}.0'
 
-class Expeditions(models.Model):
+class Expedition(models.Model):
     TIERS = [
         ('A', 'A'),
         ('B', 'B'),
