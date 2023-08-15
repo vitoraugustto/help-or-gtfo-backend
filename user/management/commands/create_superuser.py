@@ -1,3 +1,4 @@
+import os
 from user.models import CustomUser
 from django.core.management.base import BaseCommand
 
@@ -5,8 +6,8 @@ class Command(BaseCommand):
     help = 'Create a superuser'
 
     def handle(self, *args, **options):
-        email = 'vitoradmin@admin.com'
-        password = 'admin'
+        email = os.getenv('DJANGO_SUPERUSER_EMAIL')
+        password = os.getenv('DJANGO_SUPERUSER_PASSWORD')
 
         if not CustomUser.objects.filter(email=email).exists():
             CustomUser.objects.create_superuser(email=email, password=password)
