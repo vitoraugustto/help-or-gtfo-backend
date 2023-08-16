@@ -102,8 +102,15 @@ class Command(BaseCommand):
                     f'Rundown {rundown["title"]} (R{rundown["number"]}) created successfully'))
 
                 for expedition in rundown['expeditions']:
-                    Expedition.objects.create(
-                        title=expedition['title'], tier=expedition['tier'], difficulty=expedition['difficulty'], rundown=created_rundown)
+                    if not Expedition.objects.filter(title=expedition['title'], tier=expedition['tier'], difficulty=expedition['difficulty']).exists():
+                        Expedition.objects.create(
+                            title=expedition['title'], tier=expedition['tier'], difficulty=expedition['difficulty'], rundown=created_rundown)
+
+                        self.stdout.write(self.style.SUCCESS(
+                            f'Expedition {expedition["title"]} (R{rundown["number"]}{expedition["tier"]}{expedition["difficulty"]}) created successfully'))
+                    else:
+                        self.stdout.write(self.style.WARNING(
+                            f'Expedition {expedition["title"]} (R{rundown["number"]}{expedition["tier"]}{expedition["difficulty"]}) already exists'))
             else:
                 self.stdout.write(self.style.WARNING(
                     f'Rundown {rundown["title"]} (R{rundown["number"]}) already exists'))
