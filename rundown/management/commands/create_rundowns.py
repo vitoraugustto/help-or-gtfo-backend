@@ -94,9 +94,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for rundown in rundowns:
-            created_rundown = Rundown.objects.create(
-                title=rundown['title'], number=rundown['number'], release_date=rundown['release_date'])
+            if not Rundown.objects.filter(number=rundown['number']).exists():
+                created_rundown = Rundown.objects.create(
+                    title=rundown['title'], number=rundown['number'], release_date=rundown['release_date'])
 
-            for expedition in rundown['expeditions']:
-                Expedition.objects.create(
-                    title=expedition['title'], tier=expedition['tier'], difficulty=expedition['difficulty'], rundown=created_rundown)
+                self.stdout.write(self.style.SUCCESS(
+                    f'Rundown {rundown["title"]} (R{rundown["number"]}) created successfully'))
+
+                for expedition in rundown['expeditions']:
+                    Expedition.objects.create(
+                        title=expedition['title'], tier=expedition['tier'], difficulty=expedition['difficulty'], rundown=created_rundown)
+            else:
+                self.stdout.write(self.style.WARNING(
+                    f'Rundown {rundown["title"]} (R{rundown["number"]}) already exists'))
