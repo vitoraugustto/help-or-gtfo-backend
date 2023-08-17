@@ -9,8 +9,8 @@ class RundownAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'title', 'release_date')
     inlines = [ExpeditionInline]
 
-class ExpediditonAdmin(admin.ModelAdmin):
+class ExpeditionAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'title', 'rundown')
 
 admin.site.register(Rundown, RundownAdmin)
-admin.site.register(Expedition, ExpediditonAdmin)
+admin.site.register(Expedition, ExpeditionAdmin)
