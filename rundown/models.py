@@ -34,6 +34,7 @@ class Expedition(models.Model):
     tier = models.CharField(blank=False, null=False, max_length=1, choices=TIERS, verbose_name='Tiers')
     difficulty = models.CharField(blank=False, null=False, max_length=1, choices=DIFFICULTIES, verbose_name='Difficulty') 
     rundown = models.ForeignKey(Rundown, blank=False, null=False, on_delete=models.CASCADE, verbose_name='Rundown')
+    xp = models.PositiveIntegerField(null=False, blank=False, verbose_name='Experience')
 
     class Meta:
         verbose_name = 'Expedition'
@@ -41,3 +42,17 @@ class Expedition(models.Model):
 
     def __str__(self):
         return f'R{self.rundown.number}{self.tier}{self.difficulty}'
+
+    def save(self, *args, **kwargs):
+        tier_xp_mapping = {
+            'A': 20,
+            'B': 30,
+            'C': 50,
+            'D': 75,
+            'E': 100
+        }
+
+        if self.tier:
+            self.xp = tier_xp_mapping.get(self.tier, 0)
+
+        super(Expedition, self).save(*args, **kwargs)
