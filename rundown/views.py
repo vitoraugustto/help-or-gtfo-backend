@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from help_or_gtfo_backend.utils import success_response, error_response
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
+from django.shortcuts import render
 from .serializers import RundownSerializer
 from .models import Rundown
 
@@ -11,7 +12,7 @@ class RundownView(APIView):
         queryset = Rundown.objects.all()
         serializer = RundownSerializer(queryset, many=True)
 
-        return Response(serializer.data)
+        return success_response(serializer.data)
 
     def post(self, request):
         try:
@@ -31,11 +32,10 @@ class RundownView(APIView):
                 keys_missing.append("'release_date'")
 
             if keys_missing:
-                error_message = (
-                    ("Keys " if len(keys_missing) > 1 else "Key ")
-                    + ", ".join(keys_missing)
-                    + " are missing."
-                )
+                if len(keys_missing) > 1:
+                    error_message = "Keys " + ", ".join(keys_missing) + " are missing."
+                else:
+                    error_message = "Key " + keys_missing[0] + " is missing."
                 raise ValueError(error_message)
 
             rundown = Rundown.objects.create(
@@ -49,9 +49,11 @@ class RundownView(APIView):
             return Response(serializer.data)
 
         except ValueError as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return error_response(message=str(e))
 
         except Exception as e:
             return Response(
-                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                error_response(
+                    message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
             )
