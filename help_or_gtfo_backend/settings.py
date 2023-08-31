@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure-k9k@*u@i1s!@=%p6otl_eh5u=mb(+t&783_bravw2clwc8&c&=
 DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "https://help-or-gtfo.vercel.app"]
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "https://help-or-gtfo.vercel.app"]
 
 # Application definition
 
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "user",
     "rundown",
-    "corsheaders"
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
