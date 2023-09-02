@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager
 
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True)
     is_active = models.BooleanField(default=True)
@@ -11,7 +12,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
 
-    xp = models.PositiveIntegerField(null=False, blank=False, default=0, verbose_name='Experience')
+    xp = models.PositiveIntegerField(
+        null=False, blank=False, default=0, verbose_name="Experience"
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -19,5 +22,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     class Meta:
-        verbose_name = _('Prisoner')
-        verbose_name_plural = _('Prisoners')
+        verbose_name = _("Prisoner")
+        verbose_name_plural = _("Prisoners")
