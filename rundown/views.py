@@ -3,8 +3,8 @@ from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from django.shortcuts import render
-from .serializers import RundownSerializer
-from .models import Rundown
+from .serializers import RundownSerializer, ExpeditionSerializer
+from .models import Rundown, Expedition
 
 
 class RundownView(APIView):
@@ -57,3 +57,10 @@ class RundownView(APIView):
                     message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
             )
+
+class ExpeditionView(APIView):
+    def get(self, request):
+        queryset = Expedition.objects.all()
+        serializer = ExpeditionSerializer(queryset, many=True)
+        
+        return success_response(serializer.data)
