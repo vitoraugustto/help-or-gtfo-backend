@@ -2,6 +2,7 @@ from help_or_gtfo_backend.utils import success_response, error_response
 from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
+from rest_framework.decorators import api_view
 from django.shortcuts import render
 from .serializers import RundownSerializer, ExpeditionSerializer
 from .models import Rundown, Expedition
@@ -58,9 +59,32 @@ class RundownView(APIView):
                 )
             )
 
+
+@api_view(("GET",))
+def get_expedition_by_id(request, rundown_id, expedition_id):
+    rundown_id = rundown_id
+    expedition_id = expedition_id
+
+    try:
+        expedition = Expedition.objects.get(id=expedition_id, rundown__id=rundown_id)
+        serializer = ExpeditionSerializer(expedition)
+
+        return success_response(serializer.data)
+
+    except Expedition.DoesNotExist:
+        return error_response(
+            message="Expedition not found.", status=status.HTTP_404_NOT_FOUND
+        )
+
+    except Exception as e:
+        return error_response(
+            message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
 class ExpeditionView(APIView):
     def get(self, request):
         queryset = Expedition.objects.all()
         serializer = ExpeditionSerializer(queryset, many=True)
-        
+
         return success_response(serializer.data)
