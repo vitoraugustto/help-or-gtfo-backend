@@ -10,6 +10,5 @@ urlpatterns = [
         "api/v1/rundowns/<int:rundown_id>/expeditions/<int:expedition_id>",
         get_expedition_by_id,
     ),
-    path("api/v1/expeditions", ExpeditionView.as_view()),
     path("api/v1/prisoners", CustomUserView.as_view()),
 ]

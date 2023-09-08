@@ -80,11 +80,3 @@ def get_expedition_by_id(request, rundown_id, expedition_id):
         return error_response(
             message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
-
-class ExpeditionView(APIView):
-    def get(self, request):
-        queryset = Expedition.objects.all()
-        serializer = ExpeditionSerializer(queryset, many=True)
-
-        return success_response(serializer.data)
