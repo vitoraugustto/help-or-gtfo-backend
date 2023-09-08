@@ -53,10 +53,8 @@ class RundownView(APIView):
             return error_response(message=str(e))
 
         except Exception as e:
-            return Response(
-                error_response(
-                    message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
+            return error_response(
+                message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
 
