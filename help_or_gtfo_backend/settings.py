@@ -29,7 +29,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-k9k@*u@i1s!@=%p6otl_eh5u=mb(+t&783_bravw2clwc8&c&="
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.getenv('ENV_MODE') == 'development' else False
+
 
 ALLOWED_HOSTS = ("localhost", "help-or-gtfo-backend.onrender.com")
 CORS_ORIGIN_WHITELIST = ("http://localhost:3000", "https://help-or-gtfo.vercel.app")
