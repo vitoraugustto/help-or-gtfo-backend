@@ -66,8 +66,6 @@ class Expedition(models.Model):
         tier_xp_mapping = {"A": 20, "B": 30, "C": 50, "D": 75, "E": 100}
 
         self.display_name = f"R{self.rundown.number}{self.tier}{self.difficulty}"
-
-        if self.tier:
-            self.xp = tier_xp_mapping.get(self.tier, 0)
+        self.xp = tier_xp_mapping.get(self.tier, 0)
 
         super(Expedition, self).save(*args, **kwargs)
