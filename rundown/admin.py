@@ -15,7 +15,7 @@ class RundownAdmin(admin.ModelAdmin):
 
 class ExpeditionAdmin(admin.ModelAdmin):
     list_display = ("__str__", "display_name", "title", "rundown")
-    readonly_fields = ("xp",)
+    exclude = ("display_name", "xp")
 
 
 admin.site.register(Rundown, RundownAdmin)
