@@ -30,6 +30,9 @@ class Expedition(models.Model):
 
     DIFFICULTIES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("X", "X")]
 
+    display_name = models.CharField(
+        blank=False, null=True, max_length=4, verbose_name="Display name"
+    )
     title = models.CharField(
         blank=False, null=False, max_length=20, verbose_name="Title"
     )
@@ -61,6 +64,8 @@ class Expedition(models.Model):
 
     def save(self, *args, **kwargs):
         tier_xp_mapping = {"A": 20, "B": 30, "C": 50, "D": 75, "E": 100}
+
+        self.display_name = f"R{self.rundown.number}{self.tier}{self.difficulty}"
 
         if self.tier:
             self.xp = tier_xp_mapping.get(self.tier, 0)
