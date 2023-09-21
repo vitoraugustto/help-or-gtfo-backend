@@ -6,7 +6,7 @@ from .models import Rundown, Expedition
 class ExpeditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expedition
-        fields = ["id", "title", "tier", "difficulty", "xp"]
+        fields = ["id", "display_name", "title", "tier", "difficulty", "xp"]
 
 
 class RundownSerializer(serializers.ModelSerializer):
