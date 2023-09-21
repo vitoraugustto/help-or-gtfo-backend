@@ -60,7 +60,7 @@ class Expedition(models.Model):
         verbose_name_plural = "Expeditions"
 
     def __str__(self):
-        return f"R{self.rundown.number}{self.tier}{self.difficulty}"
+        return self.display_name
 
     def save(self, *args, **kwargs):
         tier_xp_mapping = {"A": 20, "B": 30, "C": 50, "D": 75, "E": 100}

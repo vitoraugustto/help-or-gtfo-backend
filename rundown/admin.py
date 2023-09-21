@@ -14,7 +14,7 @@ class RundownAdmin(admin.ModelAdmin):
 
 
 class ExpeditionAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "display_name", "title", "rundown")
+    list_display = ("__str__", "title", "rundown")
     exclude = ("display_name", "xp")
 
 
