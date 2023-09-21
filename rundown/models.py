@@ -31,7 +31,7 @@ class Expedition(models.Model):
     DIFFICULTIES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("X", "X")]
 
     display_name = models.CharField(
-        blank=False, null=True, max_length=4, verbose_name="Display name"
+        blank=False, null=False, max_length=4, verbose_name="Display name"
     )
     title = models.CharField(
         blank=False, null=False, max_length=20, verbose_name="Title"
