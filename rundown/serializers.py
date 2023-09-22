@@ -8,14 +8,7 @@ from user.serializers import MinifiedCustomUserSerializer
 class MinifiedExpeditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expedition
-        fields = [
-            "id",
-            "display_name",
-            "title",
-            "tier",
-            "difficulty",
-            "xp",
-        ]
+        fields = ["id", "display_name"]
 
 
 class ExpeditionSerializer(serializers.ModelSerializer):
