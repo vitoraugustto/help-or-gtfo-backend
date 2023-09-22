@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import serializers
 from .models import Rundown, Expedition
 from user.models import CustomUser
-from user.serializers import CustomUserSerializer
+from user.serializers import MinifiedCustomUserSerializer
 
 
 class MinifiedExpeditionSerializer(serializers.ModelSerializer):
@@ -35,7 +35,7 @@ class ExpeditionSerializer(serializers.ModelSerializer):
 
     def get_finishers(self, obj):
         finishers = CustomUser.objects.filter(completed_expeditions=obj)
-        serializer = CustomUserSerializer(finishers, many=True)
+        serializer = MinifiedCustomUserSerializer(finishers, many=True)
 
         return serializer.data
 
