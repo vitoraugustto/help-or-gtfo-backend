@@ -30,6 +30,12 @@ class Expedition(models.Model):
 
     DIFFICULTIES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("X", "X")]
 
+    SECTORS = [
+        ("main", "MAIN"),
+        ("secondary", "SECONDARY"),
+        ("overload", "OVERLOAD"),
+    ]
+
     display_name = models.CharField(
         blank=False, null=False, max_length=4, verbose_name="Display name"
     )
