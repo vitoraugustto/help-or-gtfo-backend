@@ -1,4 +1,5 @@
 from django.db import models
+from multiselectfield import MultiSelectField
 
 
 class Rundown(models.Model):
@@ -31,9 +32,9 @@ class Expedition(models.Model):
     DIFFICULTIES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("X", "X")]
 
     SECTORS = [
-        ("main", "MAIN"),
-        ("secondary", "SECONDARY"),
-        ("overload", "OVERLOAD"),
+        ("main", "Main"),
+        ("secondary", "Secondary"),
+        ("overload", "Overload"),
     ]
 
     display_name = models.CharField(
@@ -58,6 +59,9 @@ class Expedition(models.Model):
         null=False,
         on_delete=models.CASCADE,
         verbose_name="Rundown",
+    )
+    sectors = MultiSelectField(
+        choices=SECTORS, max_length=9, default=SECTORS[0], verbose_name="Sectors"
     )
     xp = models.PositiveIntegerField(null=False, blank=False, verbose_name="Experience")
 
