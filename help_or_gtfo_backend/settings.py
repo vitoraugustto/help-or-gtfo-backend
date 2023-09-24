@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-k9k@*u@i1s!@=%p6otl_eh5u=mb(+t&783_bravw2clwc8&c&="
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.getenv('ENV_MODE') == 'development' else False
+DEBUG = True if os.getenv("ENV_MODE") == "development" else False
 
 
 ALLOWED_HOSTS = ("localhost", "help-or-gtfo-backend.onrender.com")
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "multiselectfield",
     "user",
     "rundown",
 ]
