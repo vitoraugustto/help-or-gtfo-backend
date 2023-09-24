@@ -61,7 +61,7 @@ class Expedition(models.Model):
         verbose_name="Rundown",
     )
     sectors = MultiSelectField(
-        choices=SECTORS, max_length=9, default=SECTORS[0], verbose_name="Sectors"
+        choices=SECTORS, max_length=23, default=SECTORS[0], verbose_name="Sectors"
     )
     xp = models.PositiveIntegerField(null=False, blank=False, verbose_name="Experience")
 
