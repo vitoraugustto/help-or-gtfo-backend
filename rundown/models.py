@@ -32,9 +32,9 @@ class Expedition(models.Model):
     DIFFICULTIES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("X", "X")]
 
     SECTORS = [
-        ("main", "Main"),
-        ("secondary", "Secondary"),
-        ("overload", "Overload"),
+        ("Main", "Main"),
+        ("Secondary", "Secondary"),
+        ("Overload", "Overload"),
     ]
 
     display_name = models.CharField(
@@ -61,7 +61,7 @@ class Expedition(models.Model):
         verbose_name="Rundown",
     )
     sectors = MultiSelectField(
-        choices=SECTORS, max_length=23, default=SECTORS[0], verbose_name="Sectors"
+        choices=SECTORS, max_length=23, default="Main", verbose_name="Sectors"
     )
     xp = models.PositiveIntegerField(null=False, blank=False, verbose_name="Experience")
 
