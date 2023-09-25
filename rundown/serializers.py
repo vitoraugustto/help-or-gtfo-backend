@@ -20,6 +20,7 @@ class ExpeditionSerializer(serializers.ModelSerializer):
             "id",
             "display_name",
             "title",
+            "sectors",
             "tier",
             "difficulty",
             "xp",
