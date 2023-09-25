@@ -267,6 +267,7 @@ class Command(BaseCommand):
                             title=expedition["title"],
                             tier=expedition["tier"],
                             difficulty=expedition["difficulty"],
+                            sectors=expedition["sectors"],
                             rundown=created_rundown,
                         )
 
