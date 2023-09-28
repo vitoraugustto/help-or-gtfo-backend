@@ -44,7 +44,7 @@ class Expedition(models.Model):
         blank=False, null=False, max_length=20, verbose_name="Title"
     )
     tier = models.CharField(
-        blank=False, null=False, max_length=1, choices=TIERS, verbose_name="Tiers"
+        blank=False, null=False, max_length=1, choices=TIERS, verbose_name="Tier"
     )
     difficulty = models.CharField(
         blank=False,
@@ -63,6 +63,9 @@ class Expedition(models.Model):
     sectors = MultiSelectField(
         choices=SECTORS, max_length=23, default="Main", verbose_name="Sectors"
     )
+    main_sector = models.BooleanField(default=True, verbose_name="Main")
+    secondary_sector = models.BooleanField(default=False, verbose_name="Secondary")
+    overload_sector = models.BooleanField(default=False, verbose_name="Overload")
     xp = models.PositiveIntegerField(null=False, blank=False, verbose_name="Experience")
 
     class Meta:
