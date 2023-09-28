@@ -14,8 +14,40 @@ class RundownAdmin(admin.ModelAdmin):
 
 
 class ExpeditionAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "title", "sectors", "rundown")
+    list_display = (
+        "__str__",
+        "title",
+        "main_sector",
+        "secondary_sector",
+        "overload_sector",
+        "rundown",
+    )
+    readonly_fields = ("main_sector",)
     exclude = ("display_name", "xp")
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "title",
+                    "tier",
+                    "difficulty",
+                    "rundown",
+                )
+            },
+        ),
+        (
+            "Sectors",
+            {
+                "fields": (
+                    "main_sector",
+                    "secondary_sector",
+                    "overload_sector",
+                )
+            },
+        ),
+    )
 
 
 admin.site.register(Rundown, RundownAdmin)
