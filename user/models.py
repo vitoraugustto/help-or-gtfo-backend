@@ -30,6 +30,9 @@ class CompletedExpeditionUser(models.Model):
         default=False, verbose_name="Overload"
     )
 
+    def __str__(self):
+        return "Completed Expedition User"
+
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True)
