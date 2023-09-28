@@ -4,6 +4,29 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from rundown.models import Expedition
 from .managers import CustomUserManager
+from multiselectfield import MultiSelectField
+
+
+class CompletedExpeditionUser(models.Model):
+    user = models.ForeignKey(
+        "CustomUser",
+        null=False,
+        blank=False,
+        verbose_name="User",
+        on_delete=models.CASCADE,
+    )
+    expedition = models.ForeignKey(
+        Expedition,
+        null=False,
+        blank=False,
+        verbose_name="Expedition",
+        on_delete=models.CASCADE,
+    )
+    cleared_sectors = MultiSelectField(
+        choices=Expedition.SECTORS,
+        max_length=23,
+        verbose_name="Cleared sectors",
+    )
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -19,7 +42,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
 
     completed_expeditions = models.ManyToManyField(
-        Expedition, default=None, verbose_name="Completed expeditions"
+        Expedition,
+        default=None,
+        through=CompletedExpeditionUser,
+        verbose_name="Completed expeditions",
     )
 
     USERNAME_FIELD = "username"
