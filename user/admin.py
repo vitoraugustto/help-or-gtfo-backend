@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, CompletedExpeditionUser
+from .models import CustomUser, CompletedExpeditions
 
 
-class CompletedExpeditionUserAdmin(admin.ModelAdmin):
+class CompletedExpeditionsAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "expedition",
@@ -40,7 +40,7 @@ class CompletedExpeditionUserAdmin(admin.ModelAdmin):
 class CompletedExpeditionsInline(admin.TabularInline):
     verbose_name = "Completed expedition"
     verbose_name_plural = "Completed expeditions"
-    model = CompletedExpeditionUser
+    model = CompletedExpeditions
     extra = 0
 
     def has_change_permission(self, request, obj=None):
@@ -79,4 +79,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(CompletedExpeditionUser, CompletedExpeditionUserAdmin)
+admin.site.register(CompletedExpeditions, CompletedExpeditionsAdmin)

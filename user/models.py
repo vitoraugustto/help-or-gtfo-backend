@@ -7,7 +7,7 @@ from .managers import CustomUserManager
 from multiselectfield import MultiSelectField
 
 
-class CompletedExpeditionUser(models.Model):
+class CompletedExpeditions(models.Model):
     user = models.ForeignKey(
         "CustomUser",
         null=False,
@@ -49,7 +49,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     completed_expeditions = models.ManyToManyField(
         Expedition,
         default=None,
-        through=CompletedExpeditionUser,
+        through=CompletedExpeditions,
         verbose_name="Completed expeditions",
     )
 
