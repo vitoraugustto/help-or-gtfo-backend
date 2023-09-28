@@ -4,7 +4,37 @@ from .models import CustomUser, CompletedExpeditionUser
 
 
 class CompletedExpeditionUserAdmin(admin.ModelAdmin):
-    list_display = ("user", "expedition")
+    list_display = (
+        "user",
+        "expedition",
+        "cleared_main_sector",
+        "cleared_secondary_sector",
+        "cleared_overload_sector",
+    )
+
+    readonly_fields = ("cleared_main_sector",)
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "user",
+                    "expedition",
+                ),
+            },
+        ),
+        (
+            "Cleared Sectors",
+            {
+                "fields": (
+                    "cleared_main_sector",
+                    "cleared_secondary_sector",
+                    "cleared_overload_sector",
+                )
+            },
+        ),
+    )
 
 
 class CompletedExpeditionsInline(admin.TabularInline):
