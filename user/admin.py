@@ -1,12 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, CompletedExpeditionUser
+from .forms import CompletedExpeditionUserForm
+
+
+class CompletedExpeditionUserAdmin(admin.ModelAdmin):
+    list_display = ("user", "expedition", "cleared_sectors")
 
 
 class CompletedExpeditionsInline(admin.TabularInline):
     verbose_name = "Completed expedition"
     verbose_name_plural = "Completed expeditions"
-    model = CustomUser.completed_expeditions.through
+    model = CompletedExpeditionUser
     extra = 0
 
     def has_change_permission(self, request, obj=None):
@@ -25,7 +30,7 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         ("Basic information", {"fields": ("username", "email", "password")}),
-        ("Complex", {"fields": ("xp", "completed_expeditions")}),
+        ("Complex", {"fields": ("xp",)}),
         ("Dates", {"fields": ("last_login", "date_joined")}),
         (
             "Permissions",
@@ -45,3 +50,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(CompletedExpeditionUser, CompletedExpeditionUserAdmin)
