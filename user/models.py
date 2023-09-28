@@ -22,6 +22,13 @@ class CompletedExpeditionUser(models.Model):
         verbose_name="Expedition",
         on_delete=models.CASCADE,
     )
+    cleared_main_sector = models.BooleanField(default=True, verbose_name="Cleared main")
+    cleared_secondary_sector = models.BooleanField(
+        default=False, verbose_name="Cleared secondary"
+    )
+    cleared_overload_sector = models.BooleanField(
+        default=False, verbose_name="Cleared overload"
+    )
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
