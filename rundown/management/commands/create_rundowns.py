@@ -267,7 +267,15 @@ class Command(BaseCommand):
                             title=expedition["title"],
                             tier=expedition["tier"],
                             difficulty=expedition["difficulty"],
-                            sectors=expedition["sectors"],
+                            main_sector=True
+                            if "Main" in expedition["sectors"]
+                            else False,
+                            secondary_sector=True
+                            if "Secondary" in expedition["sectors"]
+                            else False,
+                            overload_sector=True
+                            if "Overload" in expedition["sectors"]
+                            else False,
                             rundown=created_rundown,
                         )
 
