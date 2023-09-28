@@ -22,12 +22,12 @@ class CompletedExpeditionUser(models.Model):
         verbose_name="Expedition",
         on_delete=models.CASCADE,
     )
-    cleared_main_sector = models.BooleanField(default=True, verbose_name="Cleared main")
+    cleared_main_sector = models.BooleanField(default=True, verbose_name="Main")
     cleared_secondary_sector = models.BooleanField(
-        default=False, verbose_name="Cleared secondary"
+        default=False, verbose_name="Secondary"
     )
     cleared_overload_sector = models.BooleanField(
-        default=False, verbose_name="Cleared overload"
+        default=False, verbose_name="Overload"
     )
 
 
