@@ -1,11 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, CompletedExpeditionUser
-from .forms import CompletedExpeditionUserForm
 
 
 class CompletedExpeditionUserAdmin(admin.ModelAdmin):
-    list_display = ("user", "expedition", "cleared_sectors")
+    list_display = ("user", "expedition")
 
 
 class CompletedExpeditionsInline(admin.TabularInline):

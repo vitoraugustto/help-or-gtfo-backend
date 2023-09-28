@@ -22,11 +22,6 @@ class CompletedExpeditionUser(models.Model):
         verbose_name="Expedition",
         on_delete=models.CASCADE,
     )
-    cleared_sectors = MultiSelectField(
-        choices=Expedition.SECTORS,
-        max_length=23,
-        verbose_name="Cleared sectors",
-    )
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
