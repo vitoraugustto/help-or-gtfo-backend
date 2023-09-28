@@ -31,12 +31,6 @@ class Expedition(models.Model):
 
     DIFFICULTIES = [("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("X", "X")]
 
-    SECTORS = [
-        ("Main", "Main"),
-        ("Secondary", "Secondary"),
-        ("Overload", "Overload"),
-    ]
-
     display_name = models.CharField(
         blank=False, null=False, max_length=4, verbose_name="Display name"
     )
@@ -59,9 +53,6 @@ class Expedition(models.Model):
         null=False,
         on_delete=models.CASCADE,
         verbose_name="Rundown",
-    )
-    sectors = MultiSelectField(
-        choices=SECTORS, max_length=23, default="Main", verbose_name="Sectors"
     )
     main_sector = models.BooleanField(default=True, verbose_name="Main")
     secondary_sector = models.BooleanField(default=False, verbose_name="Secondary")
