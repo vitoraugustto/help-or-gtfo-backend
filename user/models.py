@@ -33,6 +33,10 @@ class CompletedExpeditions(models.Model):
     def __str__(self):
         return "Completed Expedition User"
 
+    class Meta:
+        verbose_name = _("Completed expedition")
+        verbose_name_plural = _("Completed expeditions")
+
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True)
