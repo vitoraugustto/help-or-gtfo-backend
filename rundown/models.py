@@ -2,6 +2,14 @@ from django.db import models
 from multiselectfield import MultiSelectField
 
 
+class TiersXP:
+    A = 10
+    B = 30
+    C = 50
+    D = 75
+    E = 100
+
+
 class Rundown(models.Model):
     title = models.CharField(
         blank=False, null=False, max_length=20, verbose_name="Title"
@@ -67,7 +75,13 @@ class Expedition(models.Model):
         return self.display_name
 
     def save(self, *args, **kwargs):
-        tier_xp_mapping = {"A": 20, "B": 30, "C": 50, "D": 75, "E": 100}
+        tier_xp_mapping = {
+            "A": TiersXP.A,
+            "B": TiersXP.B,
+            "C": TiersXP.C,
+            "D": TiersXP.D,
+            "E": TiersXP.E,
+        }
 
         self.display_name = f"R{self.rundown.number}{self.tier}{self.difficulty}"
         self.xp = tier_xp_mapping.get(self.tier, 0)
