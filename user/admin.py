@@ -10,9 +10,13 @@ class CompletedExpeditionsAdmin(admin.ModelAdmin):
         "cleared_main_sector",
         "cleared_secondary_sector",
         "cleared_overload_sector",
+        "completed_at",
     )
 
-    readonly_fields = ("cleared_main_sector",)
+    readonly_fields = (
+        "cleared_main_sector",
+        "completed_at",
+    )
 
     fieldsets = (
         (
@@ -24,6 +28,7 @@ class CompletedExpeditionsAdmin(admin.ModelAdmin):
                 ),
             },
         ),
+        ("Dates", {"fields": ("completed_at",)}),
         (
             "Cleared Sectors",
             {
