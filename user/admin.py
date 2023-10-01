@@ -56,11 +56,11 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
 
     inlines = [CompletedExpeditionsInline]
-    list_display = ("username", "email", "xp", "is_active", "is_staff", "is_superuser")
+    list_display = ("username", "email", "level", "xp")
     list_filter = ("is_active", "is_staff", "is_superuser")
     search_fields = ("email",)
     ordering = ("email",)
-    readonly_fields = ("date_joined", "last_login", "xp")
+    readonly_fields = ("date_joined", "last_login", "level")
 
     fieldsets = (
         ("Basic information", {"fields": ("username", "email", "password")}),
