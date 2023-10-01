@@ -29,6 +29,7 @@ class CompletedExpeditions(models.Model):
     cleared_overload_sector = models.BooleanField(
         default=False, verbose_name="Overload"
     )
+    completed_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return "Completed Expedition"
