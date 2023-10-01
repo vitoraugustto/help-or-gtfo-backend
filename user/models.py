@@ -1,3 +1,5 @@
+import math
+
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -46,11 +48,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
-
+    level = models.PositiveIntegerField(
+        null=False, blank=False, default=0, verbose_name="Level"
+    )
     xp = models.PositiveIntegerField(
         null=False, blank=False, default=0, verbose_name="Experience"
     )
-
     completed_expeditions = models.ManyToManyField(
         Expedition,
         default=None,
@@ -63,6 +66,17 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    def calculate_level(self):
+        scaling_factor = 10
+
+        level = math.floor(math.sqrt(self.xp / scaling_factor))
+        self.level = level
+
     class Meta:
         verbose_name = _("Prisoner")
         verbose_name_plural = _("Prisoners")
+
+    def save(self, *args, **kwargs):
+        self.calculate_level()
+
+        super(CustomUser, self).save(*args, **kwargs)
