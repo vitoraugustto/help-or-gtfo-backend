@@ -31,7 +31,7 @@ class CompletedExpeditions(models.Model):
     )
 
     def __str__(self):
-        return "Completed Expedition User"
+        return "Completed Expedition"
 
     class Meta:
         verbose_name = _("Completed expedition")
