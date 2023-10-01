@@ -55,7 +55,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ("is_active", "is_staff", "is_superuser")
     search_fields = ("email",)
     ordering = ("email",)
-    readonly_fields = ("date_joined", "last_login")
+    readonly_fields = ("date_joined", "last_login", "xp")
 
     fieldsets = (
         ("Basic information", {"fields": ("username", "email", "password")}),
