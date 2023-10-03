@@ -10,6 +10,7 @@ class CompletedExpeditionsAdmin(admin.ModelAdmin):
         "cleared_main_sector",
         "cleared_secondary_sector",
         "cleared_overload_sector",
+        "prisoner_efficiency",
         "completed_at",
     )
 
