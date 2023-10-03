@@ -31,6 +31,9 @@ class CompletedExpeditions(models.Model):
     cleared_overload_sector = models.BooleanField(
         default=False, verbose_name="Overload"
     )
+    prisoner_efficiency = models.BooleanField(
+        default=False, verbose_name="Prisoner efficiency"
+    )
     completed_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -40,9 +43,19 @@ class CompletedExpeditions(models.Model):
         verbose_name = _("Completed expedition")
         verbose_name_plural = _("Completed expeditions")
 
+    def save(self, *args, **kwargs):
+        if (
+            self.cleared_main_sector
+            and self.cleared_secondary_sector
+            and self.cleared_overload_sector
+        ):
+            self.prisoner_efficiency = True
+
+        super(CompletedExpeditions, self).save(*args, **kwargs)
+
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("email address"), unique=True, blank=True)
     username = models.CharField(max_length=20, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
