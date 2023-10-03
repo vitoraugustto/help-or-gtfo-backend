@@ -8,8 +8,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = [
             "id",
-            "email",
             "username",
+            "email",
+            "level",
+            "xp",
             "is_active",
             "is_staff",
             "is_superuser",
@@ -20,4 +22,4 @@ class CustomUserSerializer(serializers.ModelSerializer):
 class MinifiedCustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["id", "email", "username"]
+        fields = ["id", "username", "level", "xp"]
