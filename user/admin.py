@@ -65,7 +65,15 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         ("Basic information", {"fields": ("username", "email", "password")}),
-        ("Complex", {"fields": ("xp",)}),
+        (
+            "Complex",
+            {
+                "fields": (
+                    "level",
+                    "xp",
+                )
+            },
+        ),
         ("Dates", {"fields": ("last_login", "date_joined")}),
         (
             "Permissions",
