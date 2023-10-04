@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from help_or_gtfo_backend.utils import success_response
+from help_or_gtfo_backend.utils import success_response, error_response
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import MinifiedCustomUserSerializer
@@ -14,6 +14,11 @@ class CustomUserView(APIView):
         users = CustomUser.objects.filter(is_superuser=False, is_active=True)
 
         if order_by:
+            if sort_order and sort_order != "asc" and sort_order != "desc":
+                return error_response(
+                    "The 'sort_order' parameter must be specified as 'asc' or 'desc'."
+                )
+
             sort_order = "-" if sort_order == "desc" else ""
 
             users = users.order_by(sort_order + order_by)
