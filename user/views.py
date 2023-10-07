@@ -2,7 +2,7 @@ from django.shortcuts import render
 from help_or_gtfo_backend.utils import success_response, error_response
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import MinifiedCustomUserSerializer
+from .serializers import CustomUserSerializer
 from .models import CustomUser
 
 
@@ -23,6 +23,6 @@ class CustomUserView(APIView):
 
             users = users.order_by(sort_order + order_by)
 
-        serializer = MinifiedCustomUserSerializer(users, many=True)
+        serializer = CustomUserSerializer(users, many=True)
 
         return success_response(serializer.data)
