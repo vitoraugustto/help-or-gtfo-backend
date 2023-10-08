@@ -96,7 +96,7 @@ class ExpeditionView(viewsets.GenericViewSet):
             )
             serializer = ExpeditionFinishersSerializer(expedition)
 
-            return success_response(serializer.data)
+            return success_response(serializer.data["finishers"])
 
         except Expedition.DoesNotExist:
             return error_response(
