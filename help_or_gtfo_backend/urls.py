@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from rundown.views import RundownView, get_expedition_by_id
+from rundown.views import RundownView
 from user.views import CustomUserView
 
 urlpatterns = [

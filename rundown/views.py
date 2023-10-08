@@ -1,10 +1,13 @@
 from help_or_gtfo_backend.utils import success_response, error_response
 from rest_framework.views import APIView, status
+from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser
-from rest_framework.decorators import api_view
-from django.shortcuts import render
-from .serializers import RundownSerializer, ExpeditionSerializer
+from rest_framework import viewsets
+from .serializers import (
+    RundownSerializer,
+    ExpeditionSerializer,
+    ExpeditionFinishersSerializer,
+)
 from .models import Rundown, Expedition
 
 
@@ -58,23 +61,49 @@ class RundownView(APIView):
             )
 
 
-@api_view(("GET",))
-def get_expedition_by_id(request, rundown_id, expedition_id):
-    rundown_id = rundown_id
-    expedition_id = expedition_id
+class ExpeditionView(viewsets.GenericViewSet):
+    @action(detail=True, methods=["get"])
+    def get_expedition_by_id(self, request, rundown_id, expedition_id):
+        rundown_id = rundown_id
+        expedition_id = expedition_id
 
-    try:
-        expedition = Expedition.objects.get(id=expedition_id, rundown__id=rundown_id)
-        serializer = ExpeditionSerializer(expedition)
+        try:
+            expedition = Expedition.objects.get(
+                id=expedition_id, rundown__id=rundown_id
+            )
+            serializer = ExpeditionSerializer(expedition)
 
-        return success_response(serializer.data)
+            return success_response(serializer.data)
 
-    except Expedition.DoesNotExist:
-        return error_response(
-            message="Expedition not found.", status=status.HTTP_404_NOT_FOUND
-        )
+        except Expedition.DoesNotExist:
+            return error_response(
+                message="Expedition not found.", status=status.HTTP_404_NOT_FOUND
+            )
 
-    except Exception as e:
-        return error_response(
-            message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
-        )
+        except Exception as e:
+            return error_response(
+                message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    @action(detail=True, methods=["get"])
+    def get_expedition_finishers_by_id(self, request, rundown_id, expedition_id):
+        rundown_id = rundown_id
+        expedition_id = expedition_id
+
+        try:
+            expedition = Expedition.objects.get(
+                id=expedition_id, rundown__id=rundown_id
+            )
+            serializer = ExpeditionFinishersSerializer(expedition)
+
+            return success_response(serializer.data)
+
+        except Expedition.DoesNotExist:
+            return error_response(
+                message="Expedition not found.", status=status.HTTP_404_NOT_FOUND
+            )
+
+        except Exception as e:
+            return error_response(
+                message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
