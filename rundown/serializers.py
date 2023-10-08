@@ -12,8 +12,6 @@ class MinifiedExpeditionSerializer(serializers.ModelSerializer):
 
 
 class ExpeditionSerializer(serializers.ModelSerializer):
-    finishers = serializers.SerializerMethodField()
-
     class Meta:
         model = Expedition
         fields = [
@@ -26,6 +24,15 @@ class ExpeditionSerializer(serializers.ModelSerializer):
             "tier",
             "difficulty",
             "xp",
+        ]
+
+
+class ExpeditionFinishersSerializer(serializers.ModelSerializer):
+    finishers = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Expedition
+        fields = [
             "finishers",
         ]
 
