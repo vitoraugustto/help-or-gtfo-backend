@@ -31,7 +31,9 @@ class ExpeditionSerializer(serializers.ModelSerializer):
 
     def get_finishers(self, obj):
         finishers = CustomUser.objects.filter(completed_expeditions=obj)
-        serializer = MinifiedCustomUserSerializer(finishers, many=True)
+        unique_finishers = set(finishers)
+
+        serializer = MinifiedCustomUserSerializer(unique_finishers, many=True)
 
         return serializer.data
 
