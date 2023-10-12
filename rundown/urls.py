@@ -1,6 +1,6 @@
-from .views import RundownView, ExpeditionView
 from django.urls import path
 
+from .views import ExpeditionView, RundownView
 
 urlpatterns = [
     path("", RundownView.as_view()),

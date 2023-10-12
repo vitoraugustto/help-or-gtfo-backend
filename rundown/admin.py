@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Rundown, Expedition
+
+from .models import Expedition, Rundown
 
 
 class ExpeditionInline(admin.TabularInline):

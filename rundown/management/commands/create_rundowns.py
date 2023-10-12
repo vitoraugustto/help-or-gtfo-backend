@@ -1,6 +1,8 @@
 import os
-from rundown.models import Rundown, Expedition
+
 from django.core.management.base import BaseCommand
+
+from rundown.models import Expedition, Rundown
 
 rundowns = [
     {

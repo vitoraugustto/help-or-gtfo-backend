@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from help_or_gtfo_backend.utils import success_response, error_response
-from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from .serializers import CustomUserSerializer, MinifiedCustomUserSerializer
+from rest_framework.response import Response
+from rest_framework.views import status
+
+from help_or_gtfo_backend.utils import error_response, success_response
+
 from .models import CustomUser
+from .serializers import CustomUserSerializer, MinifiedCustomUserSerializer
 
 
 class CustomUserView(viewsets.GenericViewSet):

@@ -1,6 +1,9 @@
 import os
-from user.models import CustomUser
+
 from django.core.management.base import BaseCommand
+
+from user.models import CustomUser
+
 
 class Command(BaseCommand):
     help = 'Create a superuser'

@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from rest_framework import serializers
-from .models import Rundown, Expedition
+
 from user.models import CustomUser
 from user.serializers import MinifiedCustomUserSerializer
+
+from .models import Expedition, Rundown
 
 
 class MinifiedExpeditionSerializer(serializers.ModelSerializer):
