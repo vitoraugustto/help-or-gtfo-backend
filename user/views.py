@@ -7,7 +7,11 @@ from rest_framework.views import status
 from help_or_gtfo_backend.utils import error_response, success_response
 
 from .models import CustomUser
-from .serializers import CustomUserSerializer, MinifiedCustomUserSerializer
+from .serializers import (
+    CustomUserCompletedExpeditionsSerializer,
+    CustomUserSerializer,
+    MinifiedCustomUserSerializer,
+)
 
 
 class CustomUserView(viewsets.GenericViewSet):
@@ -39,6 +43,24 @@ class CustomUserView(viewsets.GenericViewSet):
             serializer = CustomUserSerializer(user)
 
             return success_response(serializer.data)
+
+        except CustomUser.DoesNotExist:
+            return error_response(
+                message="Prisoner not found.", status=status.HTTP_404_NOT_FOUND
+            )
+
+        except Exception as e:
+            return error_response(
+                message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+    @action(detail=True, methods=["get"])
+    def get_user_completed_expeditions_by_id(self, request, user_id):
+        try:
+            user = CustomUser.objects.get(id=user_id)
+            serializer = CustomUserCompletedExpeditionsSerializer(user)
+
+            return success_response(serializer.data["completed_expeditions"])
 
         except CustomUser.DoesNotExist:
             return error_response(
