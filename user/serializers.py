@@ -1,9 +1,25 @@
 from django.shortcuts import render
 from rest_framework import serializers
 
-from rundown.serializers import CompletedExpeditionsSerializer
-
 from .models import CompletedExpeditions, CustomUser
+
+
+class CompletedExpeditionsSerializer(serializers.ModelSerializer):
+    from rundown.serializers import ExpeditionSerializer
+
+    expedition = ExpeditionSerializer()
+
+    class Meta:
+        model = CompletedExpeditions
+        fields = [
+            "id",
+            "cleared_main_sector",
+            "cleared_secondary_sector",
+            "cleared_overload_sector",
+            "prisoner_efficiency",
+            "completed_at",
+            "expedition",
+        ]
 
 
 class CustomUserCompletedExpeditionsSerializer(serializers.ModelSerializer):
