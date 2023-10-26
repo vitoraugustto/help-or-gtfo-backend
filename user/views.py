@@ -1,20 +1,23 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.views import status
 
 from help_or_gtfo_backend.utils import error_response, success_response
 
-from .models import CustomUser
+from .models import CompletedExpeditions, CustomUser
 from .serializers import (
-    CustomUserCompletedExpeditionsSerializer,
+    CompletedExpeditionsSerializer,
     CustomUserSerializer,
     MinifiedCustomUserSerializer,
 )
 
 
 class CustomUserView(viewsets.GenericViewSet):
+    pagination_class = LimitOffsetPagination
+
     @action(detail=True, methods=["get"])
     def get_users(self, request):
         order_by = request.GET.get("order_by", "")
@@ -59,9 +62,16 @@ class CustomUserView(viewsets.GenericViewSet):
     def get_user_completed_expeditions_by_id(self, request, user_id):
         try:
             user = CustomUser.objects.get(id=user_id)
-            serializer = CustomUserCompletedExpeditionsSerializer(user)
 
-            return success_response(serializer.data["completed_expeditions"])
+            completed_expeditions = CompletedExpeditions.objects.filter(user=user)
+
+            page = self.paginate_queryset(completed_expeditions)
+
+            serializer = CompletedExpeditionsSerializer(
+                completed_expeditions, many=True
+            )
+
+            return self.get_paginated_response(serializer.data)
 
         except CustomUser.DoesNotExist:
             return error_response(
