@@ -17,7 +17,6 @@ from .serializers import (
 
 class StandardPagination(PageNumberPagination):
     page_size = 10
-    page_query_param = "page_size"
 
     def get_paginated_response(self, data):
         return success_response(
