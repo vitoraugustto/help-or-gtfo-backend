@@ -23,6 +23,8 @@ class StandardPagination(PageNumberPagination):
         return success_response(
             {
                 "count": self.page.paginator.count,
+                "previous": self.get_previous_link(),
+                "next": self.get_next_link(),
                 "results": data,
             }
         )
