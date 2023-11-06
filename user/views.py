@@ -78,7 +78,9 @@ class CustomUserView(viewsets.GenericViewSet):
         try:
             user = CustomUser.objects.get(id=user_id)
 
-            completed_expeditions = CompletedExpeditions.objects.filter(user=user)
+            completed_expeditions = CompletedExpeditions.objects.filter(
+                user=user
+            ).order_by("expedition")
 
             page = self.paginate_queryset(completed_expeditions)
 
