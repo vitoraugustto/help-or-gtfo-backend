@@ -73,7 +73,6 @@ class CustomUserView(viewsets.GenericViewSet):
                 message=str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-    # TODO: Add pagination
     @action(detail=True, methods=["get"])
     def get_user_completed_expeditions_by_id(self, request, user_id):
         try:
