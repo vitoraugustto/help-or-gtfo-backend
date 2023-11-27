@@ -84,9 +84,7 @@ class CustomUserView(viewsets.GenericViewSet):
 
             page = self.paginate_queryset(completed_expeditions)
 
-            serializer = CompletedExpeditionsSerializer(
-                completed_expeditions, many=True
-            )
+            serializer = CompletedExpeditionsSerializer(page, many=True)
 
             return self.get_paginated_response(serializer.data)
 
